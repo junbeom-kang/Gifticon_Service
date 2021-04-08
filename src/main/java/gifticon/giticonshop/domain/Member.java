@@ -15,7 +15,7 @@ public class Member {
     @Column(name="member_id")
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member") //필드에서 초기화가 best practice
     private List<Gift> Gifts=new ArrayList<>();
     @OneToMany(mappedBy = "member")
     private List<Gift> Send_Gifts=new ArrayList<>();
