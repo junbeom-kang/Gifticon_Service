@@ -1,2 +1,8 @@
-package gifticon.giticonshop.controller;public class MemberController {
+package gifticon.giticonshop.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MemberController {
+    //@Re
 }

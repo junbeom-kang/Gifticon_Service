@@ -16,10 +16,12 @@ public class Gift {
     @Column(name="gift_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//persist 전파를 위한 cascade
-    @JoinColumn(name="member_id")
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//persist 전파를 위한 cascade
+    @JoinColumn(name="member_id",insertable = false, updatable = false)
     private Member buyMember;
 
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//persist 전파를 위한 cascade
+    @JoinColumn(name="member_id")
     private Member getMember;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -34,10 +36,12 @@ public class Gift {
     private Used Use;
     //연관관계 편의 메서드
     //연관관계의 주인은 Gift
+    /*
     public void setMember(Member buyMember,Member getMember) {
         this.buyMember=buyMember;
         this.getMember=getMember;
         buyMember.getSend_Gifts().add(this);
         getMember.getGifts().add(this);
     }
+     */
 }
