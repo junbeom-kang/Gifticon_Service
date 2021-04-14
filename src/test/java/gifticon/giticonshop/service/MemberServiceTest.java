@@ -8,10 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 import java.util.List;
 
@@ -35,16 +32,26 @@ class MemberServiceTest {
         Member member=makeMember();
         //when
         memberService.join(member);
-
         //then
-        assertThat("준범").isEqualTo(memberService.findByName("준범").get(0).getName());
-
+        assertThat(memberService.findByName("준범").get(0).getName()).isEqualTo("준범");
+    }
+    @Test
+    public void 중복_ID_검사_테스트() throws Exception {
+        //given
+        Member member=makeMember();
+        member.setLogin_id("asdf");
+        Member member1=makeMember();
+        member1.setLogin_id("asdf");
+        //when
+        memberService.join(member);
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member1));
+        //then
+        assertThat(e.getMessage()).isEqualTo("Id 중복입니다");
     }
     @Test
     public void 이름으로_찾기() throws Exception {
         //given
         Member member=makeMember();
-        //member.setName("창훈");
         //when
         memberService.join(member);
         //then
@@ -52,11 +59,19 @@ class MemberServiceTest {
         for (Member m : result) {
             System.out.println(m.toString());
         }
-        assertThat(3).isEqualTo(result.size());
+        assertThat(result.size()).isEqualTo(1);
     }
     @Test
     public void 전체_회원목록() throws Exception {
-        assertThat(4).isEqualTo(memberService.allMember().size());
+        //given
+        Member member=makeMember();
+        Member member1=makeMember();
+        member1.setName("창훈");
+        //when
+        memberService.join(member);
+        memberService.join(member1);
+        //then
+        assertThat(memberService.allMember().size()).isEqualTo(2);
 
     }
 

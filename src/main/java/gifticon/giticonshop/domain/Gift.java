@@ -34,14 +34,5 @@ public class Gift {
     private Long count;
     @Enumerated(EnumType.STRING)
     private Used Use;
-    //연관관계 편의 메서드
-    //연관관계의 주인은 Gift
-    /*
-    public void setMember(Member buyMember,Member getMember) {
-        this.buyMember=buyMember;
-        this.getMember=getMember;
-        buyMember.getSend_Gifts().add(this);
-        getMember.getGifts().add(this);
-    }
-     */
+
 }

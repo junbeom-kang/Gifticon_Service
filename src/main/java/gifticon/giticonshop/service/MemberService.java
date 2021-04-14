@@ -15,6 +15,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
     @Transactional
     public void join(Member member) {
+        if (!memberRepository.findByLoginId(member.getLogin_id()).isEmpty()) {
+            throw new IllegalStateException("Id 중복입니다");
+        }
         memberRepository.save(member);
     }
 

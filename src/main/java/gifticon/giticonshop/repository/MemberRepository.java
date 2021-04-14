@@ -18,9 +18,13 @@ public class MemberRepository {
         em.persist(member);
     }
 
+    public Member findOne(Long id){
+        return em.find(Member.class, id);}
+
     public Member findById(Long id) {
         return em.find(Member.class, id);
     }
+
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
@@ -31,5 +35,10 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Member> findByLoginId(String log_id) {
+        return em.createQuery("select m from Member m where m.login_id=:log_id", Member.class)
+                .setParameter("log_id", log_id)
+                .getResultList();
+    }
 
 }

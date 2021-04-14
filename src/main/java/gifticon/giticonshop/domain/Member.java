@@ -14,6 +14,9 @@ public class Member {
     @Id @GeneratedValue
     @Column(name="member_id")
     private Long id;
+    private String name;
+    private String login_id;
+    private String password;
     private Long cash;
 
     @Override
@@ -25,7 +28,7 @@ public class Member {
                 '}';
     }
 
-    private String name;
+
 /*
     @OneToMany(mappedBy = "buyMember")//필드에서 초기화가 best practice
     private List<Gift> Send_Gifts=new ArrayList<>();
