@@ -1,5 +1,6 @@
 package gifticon.giticonshop.domain;
 
+import gifticon.giticonshop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,27 @@ public class Item {
     private String name;
     private Long price;
     private Long stock;
+
+
+    public void add(Long plus) {
+        this.stock+=plus;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
+    }
+
+    public void minus(Long minus) {
+        Long temp=this.stock-minus;
+        if (temp<0) {
+            throw new NotEnoughStockException("재고가 부족합니다");
+        }
+        this.stock=temp;
+    }
 }

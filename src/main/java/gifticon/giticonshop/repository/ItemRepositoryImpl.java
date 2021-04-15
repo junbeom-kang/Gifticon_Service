@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepository {
-    EntityManager em;
+    private final EntityManager em;
     @Override
     public void save(Item item) {
         em.persist(item);
