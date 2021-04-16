@@ -53,8 +53,6 @@ class ItemServiceImplTest {
 
     }
 
-
-
     private Item makeItem() {
         Item item=new Item();
         item.setName("jpabook");

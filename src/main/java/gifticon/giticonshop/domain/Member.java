@@ -28,12 +28,4 @@ public class Member {
                 '}';
     }
 
-
-/*
-    @OneToMany(mappedBy = "buyMember")//필드에서 초기화가 best practice
-    private List<Gift> Send_Gifts=new ArrayList<>();
-
-    @OneToMany(mappedBy = "buyMember")
-    private List<Gift> Gifts=new ArrayList<>();
- */
 }

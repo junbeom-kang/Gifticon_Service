@@ -1,6 +1,7 @@
 package gifticon.giticonshop.repository;
 
 import gifticon.giticonshop.domain.Gift;
+import gifticon.giticonshop.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GiftRepositoryImpl implements GiftRepository{
     private final EntityManager em;
+    private final MemberRepository memberRepository;
     @Override
     public void save(Gift gift) {
         em.persist(gift);
@@ -33,6 +35,6 @@ public class GiftRepositoryImpl implements GiftRepository{
 
     @Override
     public List<Gift> findAll() {
-        return em.createQuery("select g from Gift g").getResultList();
+        return em.createQuery("select g from Gift g",Gift.class).getResultList();
     }
 }

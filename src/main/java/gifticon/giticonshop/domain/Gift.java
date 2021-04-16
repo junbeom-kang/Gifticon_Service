@@ -4,6 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.springframework.boot.context.properties.bind.Name;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,18 +20,22 @@ public class Gift {
     @Id @GeneratedValue
     @Column(name="gift_id")
     private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//persist 전파를 위한 cascade
-    @JoinColumn(name="member_id",insertable = false, updatable = false)
-    private Member buyMember;
-
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//persist 전파를 위한 cascade
-    @JoinColumn(name="member_id")
-    private Member getMember;
-
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="item_id")
     private Item item;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    //@JoinColumn(referencedColumnName = "member_id")
+    //@JoinColumn(name = "buyMember_id")
+    @JoinColumn
+    private Member buyMember;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    //@JoinColumn(referencedColumnName = "member_id")
+    //@JoinColumn(name = "getMember_id")
+    @JoinColumn
+    private Member getMember;
+
     private String giftCode;
 
     private LocalDateTime orderDate;

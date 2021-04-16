@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,7 @@ class GiftServiceImplTest {
 
 
     @Test
+    @Rollback(false)
     public void Gift_DB_테스트() throws Exception {
         //given
         Long b,g,i;
@@ -58,9 +60,10 @@ class GiftServiceImplTest {
         i=work[2];
         Long giftId=giftService.make(b,g,i,4);
         //when
-        System.out.println(giftService.allGift());
         //then
-        List<Gift> gifts = giftService.gift_By_Buyer(b);
+        System.out.println(giftService.findOne(giftId));
+        em.flush();
+        List<Gift> gifts = giftService.gift_By_Getter(b);
         System.out.println(b);
         System.out.println("==================");
         for (Gift x : gifts) {
