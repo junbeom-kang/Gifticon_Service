@@ -17,12 +17,12 @@ public class GiftRepositoryImpl implements GiftRepository{
 
     @Override
     public List<Gift> findByBuyer(Long id) {
-        return em.createQuery("select g from Gift g where Gift.buyMember.id=:id", Gift.class).setParameter("id",id).getResultList();
+        return em.createQuery("select g from Gift g where g.buyMember.id=:id", Gift.class).setParameter("id",id).getResultList();
     }
 
     @Override
     public List<Gift> findByGetter(Long id) {
-        return em.createQuery("select g from Gift g where Gift.getMember.id=:id", Gift.class).setParameter("id",id).getResultList();
+        return em.createQuery("select g from Gift g where g.getMember.id=:id", Gift.class).setParameter("id",id).getResultList();
 
     }
 

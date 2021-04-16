@@ -20,6 +20,9 @@ public class MemberService {
         }
         memberRepository.save(member);
     }
+    public Member findOne(Long id) {
+        return memberRepository.findOne(id);
+    }
 
     public List<Member> findByName(String name) {
         return memberRepository.findByName(name);
