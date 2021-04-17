@@ -24,6 +24,7 @@ public class GiftServiceImpl implements GiftService {
         Member buyer=memberRepository.findOne(buyerId);
         Member getter = memberRepository.findOne(getterId);
         Item item = itemRepository.findOne(itemId);
+        item.minus(count);
         Gift gift = Gift.createGift(buyer, getter, item, count);
         giftRepository.save(gift);
         return gift.getId();

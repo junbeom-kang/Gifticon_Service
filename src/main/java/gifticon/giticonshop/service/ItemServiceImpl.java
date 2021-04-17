@@ -34,7 +34,7 @@ public class ItemServiceImpl implements ItemService{
         return itemRepository.findByName(name);
     }
     @Transactional
-    public void updateItem(Long id,String name,Long price,Long count) {
+    public void updateItem(Long id,String name,int price,int count) {
         Item find = itemRepository.findOne(id);
         find.setName(name);
         find.setPrice(price);

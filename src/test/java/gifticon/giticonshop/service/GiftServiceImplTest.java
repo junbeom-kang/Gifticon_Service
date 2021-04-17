@@ -3,6 +3,7 @@ package gifticon.giticonshop.service;
 import gifticon.giticonshop.domain.Gift;
 import gifticon.giticonshop.domain.Item;
 import gifticon.giticonshop.domain.Member;
+import gifticon.giticonshop.exception.NotEnoughStockException;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,6 @@ class GiftServiceImplTest {
 
 
     @Test
-    @Rollback(false)
     public void Gift_DB_테스트() throws Exception {
         //given
         Long b,g,i;
@@ -74,9 +74,21 @@ class GiftServiceImplTest {
         System.out.println("==================");
         assertThat(buyer_gifts.size()).isEqualTo(2);
         assertThat(getter_gifts.size()).isEqualTo(1);
-
-
     }
+    @Test
+    public void Gift_생성시_재고부족_테스트() throws Exception {
+        //given
+        Long b,g,i;
+        Long[] work = work("준범","창훈","핸드폰");
+        b=work[0];
+        g=work[1];
+        i=work[2];
+        //when
+        NotEnoughStockException e=assertThrows(NotEnoughStockException.class,()->giftService.make(b,g,i,100));
+        //then
+        assertThat(e.getMessage()).isEqualTo("재고가 부족합니다");
+    }
+
     Long[] work(String buy,String get,String itemName) {
         Member member=new Member();
         member.setName(buy);
@@ -86,6 +98,7 @@ class GiftServiceImplTest {
         memberService.join(member1);
         Item item=new Item();
         item.setName(itemName);
+        item.setStock(5);
         itemService.join(item);
         return new Long[]{member.getId(),member1.getId(),item.getId()};
 

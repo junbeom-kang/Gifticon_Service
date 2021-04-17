@@ -17,11 +17,10 @@ public class Item {
     @Column(name="item_id")
     private Long id;
     private String name;
-    private Long price;
-    private Long stock;
+    private int price;
+    private int stock;
 
-
-    public void add(Long plus) {
+    public void add(int plus) {
         this.stock+=plus;
     }
 
@@ -35,8 +34,8 @@ public class Item {
                 '}';
     }
 
-    public void minus(Long minus) {
-        Long temp=this.stock-minus;
+    public void minus(int minus) {
+        int temp=this.stock-minus;
         if (temp<0) {
             throw new NotEnoughStockException("재고가 부족합니다");
         }

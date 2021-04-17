@@ -1,6 +1,7 @@
 package gifticon.giticonshop.service;
 
 import gifticon.giticonshop.domain.Item;
+import gifticon.giticonshop.exception.NotEnoughStockException;
 import gifticon.giticonshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
@@ -46,18 +47,30 @@ class ItemServiceImplTest {
         Item item=makeItem();
         //when
         Long itemId = itemService.join(item);
-        itemService.updateItem(itemId,"헌책",100L,1L);
+        itemService.updateItem(itemId,"헌책",100,1);
         //then
         assertThat(item.getName()).isEqualTo("헌책");
         System.out.println(itemService.findOne(itemId).toString());
 
     }
+    @Test
+    public void 재고부족_예외테스트() throws Exception {
+        //given
+        Item item=makeItem();
+
+        //when
+        NotEnoughStockException e = assertThrows(NotEnoughStockException.class, () -> item.minus(11));;
+
+        //then
+        assertThat(e.getMessage()).isEqualTo("재고가 부족합니다");
+    }
+
 
     private Item makeItem() {
         Item item=new Item();
         item.setName("jpabook");
-        item.setPrice(10000L);
-        item.setStock(10L);
+        item.setPrice(10000);
+        item.setStock(10);
         return item;
     }
 }
