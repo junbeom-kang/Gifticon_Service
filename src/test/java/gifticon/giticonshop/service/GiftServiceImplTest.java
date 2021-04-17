@@ -37,7 +37,7 @@ class GiftServiceImplTest {
     public void Gift_DB_테스트() throws Exception {
         //given
         Long b,g,i;
-        Long[] work = work();
+        Long[] work = work("준범","창훈","핸드폰");
         b=work[0];
         g=work[1];
         i=work[2];
@@ -51,37 +51,41 @@ class GiftServiceImplTest {
         //member도 item도 모두 persist해야될 것이라는 생각이 들었었는데 생각해보니까 cacadeType All로 처리했었다.
     }
     @Test
-    public void 구매자로_검색() throws Exception {
+    public void 구매자별_판매자별로_검색() throws Exception {
         //given
-        Long b,g,i;
-        Long[] work = work();
-        b=work[0];
-        g=work[1];
-        i=work[2];
-        Long giftId=giftService.make(b,g,i,4);
+        Long[] work = work("준범","창훈","핸드폰");
+        Long giftId=giftService.make(work[0],work[1],work[2],4);
+        Long[] work1 = work("준범","정엽","책");
+        Long giftId1=giftService.make(work[0],work1[1],work1[2],5);
+
         //when
+        List<Gift> buyer_gifts = giftService.gift_By_Buyer(work[0]);
+        List<Gift> getter_gifts = giftService.gift_By_Getter(work[1]);
         //then
-        System.out.println(giftService.findOne(giftId));
-        em.flush();
-        List<Gift> gifts = giftService.gift_By_Getter(b);
-        System.out.println(b);
         System.out.println("==================");
-        for (Gift x : gifts) {
+        for (Gift x : buyer_gifts) {
             System.out.println(x);
         }
         System.out.println("==================");
+        System.out.println("==================");
+        for (Gift x : getter_gifts) {
+            System.out.println(x);
+        }
+        System.out.println("==================");
+        assertThat(buyer_gifts.size()).isEqualTo(2);
+        assertThat(getter_gifts.size()).isEqualTo(1);
 
 
     }
-    Long[] work() {
+    Long[] work(String buy,String get,String itemName) {
         Member member=new Member();
-        member.setName("준범");
+        member.setName(buy);
         memberService.join(member);
         Member member1=new Member();
-        member1.setName("창훈");
+        member1.setName(get);
         memberService.join(member1);
         Item item=new Item();
-        item.setName("핸드폰");
+        item.setName(itemName);
         itemService.join(item);
         return new Long[]{member.getId(),member1.getId(),item.getId()};
 
