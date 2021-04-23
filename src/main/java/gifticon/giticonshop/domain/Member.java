@@ -17,7 +17,7 @@ public class Member {
     private String name;
     private String login_id;
     private String password;
-    private Long cash;
+    private int cash;
 
     @Override
     public String toString() {
