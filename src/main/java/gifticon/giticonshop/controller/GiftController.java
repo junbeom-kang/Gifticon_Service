@@ -1,2 +1,4 @@
-package gifticon.giticonshop.controller;public class GiftController {
+package gifticon.giticonshop.controller;
+
+public class GiftController {
 }
