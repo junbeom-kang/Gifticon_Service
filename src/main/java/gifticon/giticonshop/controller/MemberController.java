@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,20 +38,32 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/all")
-    public String all() {
-        return "members/all";
-    }
 
+    //이름입력창으로 보내
     @GetMapping("/name")
-    public String find() {
+    public String find(Model model) {
+        model.addAttribute("name", "");
         return "members/name";
     }
 
-    @GetMapping("members/{name}")
-    public String findMember(@PathVariable String name,Model model) {
+    //이름 경로를받아서 List보여주는곳으로 보내
+    @GetMapping("/{name}")
+    public String findMember(@PathVariable String name, Model model) {
         List<Member> result = memberService.findByName(name);
         model.addAttribute(result);
         return "members/memberList";
     }
+
+    @GetMapping("/cash")
+    public String chargeCash(Model model) {
+        model.addAttribute("cash", 0);
+        return "members/chargeCash";
+    }
+    /*
+    //나중에 덧셈
+    @PostMapping("chargeCash")
+    public String charge(@ModelAttribute("cash") String cash) {
+
+    }
+     */
 }
