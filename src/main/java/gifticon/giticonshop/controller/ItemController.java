@@ -1,12 +1,16 @@
 package gifticon.giticonshop.controller;
 
+import gifticon.giticonshop.domain.Item;
 import gifticon.giticonshop.service.ItemServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/items")
@@ -23,7 +27,21 @@ public class ItemController {
     }
 
     @GetMapping("/new")
-    public String newItem(Model model) {
-        ItemForm itemForm()=new ItemForm();
+    public String createItemForm(Model model) {
+        model.addAttribute("itemForm", new ItemForm());
+        return "items/createItemForm";
+    }
+
+    @PostMapping("/new")
+    public String createItem(@Valid ItemForm itemForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/items/new";
+        }
+        Item item=new Item();
+        item.setName(itemForm.getName());
+        item.setStock(itemForm.getStock());
+        item.setPrice(itemForm.getPrice());
+        itemServiceImpl.join(item);
+        return "redirect:/";
     }
 }
