@@ -59,8 +59,8 @@ class GiftServiceImplTest {
         Long giftId1=giftService.make(work[0],work1[1],work1[2],5);
 
         //when
-        List<Gift> buyer_gifts = giftService.gift_By_Buyer(work[0]);
-        List<Gift> getter_gifts = giftService.gift_By_Getter(work[1]);
+        List<Gift> buyer_gifts = giftService.find_By_Buyer(work[0]);
+        List<Gift> getter_gifts = giftService.find_By_Getter(work[1]);
         //then
         System.out.println("==================");
         for (Gift x : buyer_gifts) {

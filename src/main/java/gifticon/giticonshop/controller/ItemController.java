@@ -1,5 +1,6 @@
 package gifticon.giticonshop.controller;
 
+import gifticon.giticonshop.controller.DTOForm.ItemForm;
 import gifticon.giticonshop.domain.Item;
 import gifticon.giticonshop.service.ItemServiceImpl;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package gifticon.giticonshop.controller;
+package gifticon.giticonshop.controller.DTOForm;
 
 import lombok.Data;
 

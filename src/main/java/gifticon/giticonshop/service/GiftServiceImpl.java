@@ -31,12 +31,12 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public List<Gift> gift_By_Buyer(Long id) {
+    public List<Gift> find_By_Buyer(Long id) {
         return giftRepository.findByBuyer(id);
     }
 
     @Override
-    public List<Gift> gift_By_Getter(Long id) {
+    public List<Gift> find_By_Getter(Long id) {
         return giftRepository.findByGetter(id);
     }
 
