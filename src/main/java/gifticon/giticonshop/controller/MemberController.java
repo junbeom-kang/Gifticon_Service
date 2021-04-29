@@ -1,8 +1,8 @@
 package gifticon.giticonshop.controller;
 
+import gifticon.giticonshop.controller.DTOForm.MemberForm;
 import gifticon.giticonshop.domain.Member;
 import gifticon.giticonshop.service.MemberService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

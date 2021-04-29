@@ -53,4 +53,11 @@ public class GiftController {
         model.addAttribute("Name", "받은 선물함");
         return "/gift/giftList";
     }
+    @GetMapping("mySendGift/{id}")
+    public String sendGiftList(@PathVariable("id") Long myId,Model model) {
+        List<Gift> result = giftService.find_By_Buyer(myId);
+        model.addAttribute("gifts", result);
+        model.addAttribute("Name", "보낸 선물함");
+        return "/gift/giftList";
+    }
 }
