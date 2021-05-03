@@ -22,7 +22,7 @@ class MemberServiceTest {
     @Autowired MemberService memberService;
     static Member makeMember() {
         Member member=new Member();
-        member.setCash(1000L);
+        member.setCash(1000);
         member.setName("준범");
         return member;
     }
